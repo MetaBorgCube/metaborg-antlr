@@ -1,0 +1,48 @@
+module static-semantics
+
+signature
+  
+  namespaces
+
+    Rule
+
+rules
+
+  init ^ (s) :=
+      new s.
+
+  [[ Grammar(name, rules) ^ (s) ]] :=
+    Map1 [[ rules ^ (s) ]].
+  
+  [[ Rule(_, name, element) ^ (s) ]] :=
+    Rule{name} <- s,
+    [[ element ^ (s) ]].
+
+  [[ Conc(e1, e2) ^ (s) ]] :=
+    [[ e1 ^ (s) ]],
+    [[ e2 ^ (s) ]].
+
+  [[ Alt(e1, e2) ^ (s) ]] :=
+    [[ e1 ^ (s) ]],
+    [[ e2 ^ (s) ]].
+
+  [[ Star(e) ^ (s) ]] :=
+    [[ e ^ (s) ]].
+
+  [[ Plus(e) ^ (s) ]] :=
+    [[ e ^ (s) ]].
+
+  [[ Opt(e) ^ (s) ]] :=
+    [[ e ^ (s) ]].
+
+  [[ Nonterminal(name) ^ (s) ]] :=
+    Rule{name} -> s,
+    Rule{name} |-> d | error "Rule definition not found".
+
+  [[ Empty() ^ (s) ]].
+  
+  [[ Literal(_) ^ (s) ]].
+
+  [[ CharClass(_) ^ (s) ]].
+  
+  [[ EOF() ^ (s) ]].

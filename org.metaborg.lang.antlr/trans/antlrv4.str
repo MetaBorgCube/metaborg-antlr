@@ -1,0 +1,16 @@
+module antlrv4
+
+imports
+  
+  analysis
+  completion/completion
+  outline
+  pp
+
+rules // Debugging
+  
+  debug-show-aterm:
+    (node, _, _, path, project-path) -> (filename, result)
+    with
+      filename := <guarantee-extension(|"aterm")> path
+    ; result   := node

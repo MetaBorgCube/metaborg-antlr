@@ -1,0 +1,31 @@
+module Comment
+
+lexical syntax
+
+  CommentChar    = [\*] 
+  LAYOUT         = "/*" InsideComment* "*/" 
+  InsideComment  = ~[\*] 
+  InsideComment  = CommentChar 
+  LAYOUT         = "#" ~[\n\r]* NewLineEOF
+  LAYOUT         = "//" ~[\n\r]* NewLineEOF 
+  NewLineEOF     = [\n\r] 
+  NewLineEOF     = EOF 
+  EOF            =
+
+lexical restrictions
+
+  // Ensure greedy matching for lexicals
+  
+  CommentChar   -/- [\/]
+  
+  // EOF may not be followed by any char
+  
+  EOF           -/- ~[]
+
+context-free restrictions
+
+  // Ensure greedy matching of layout
+  
+  LAYOUT? -/- [\#]
+  LAYOUT? -/- [\/].[\/]
+  LAYOUT? -/- [\/].[\*]
