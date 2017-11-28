@@ -31,7 +31,7 @@ context-free syntax
   Element.Star = <<Element>*>
   Element.Opt = <<Element>?>
   Element.Plus = <<Element>+>
-  Element.Literal = <'<Literal>'>
+  Element.Literal = Literal
   Element.Nonterminal = ID
   Element.EOF = <EOF>
   Element = CharacterClass

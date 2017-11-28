@@ -2,13 +2,12 @@ module Literal
 
 lexical syntax
 
-  Literal = LiteralChar*
-  LiteralChar = (~[\'\n])
+  Literal = "'" LiteralChar* "'"
+  LiteralChar = ~[\'\n\\]
   LiteralChar = "\\'"
   LiteralChar = LiteralBackSlashChar
   LiteralBackSlashChar = "\\"
 
 lexical restrictions
 
-  Literal -/- ~[\'\n]
   LiteralBackSlashChar -/- [\']
