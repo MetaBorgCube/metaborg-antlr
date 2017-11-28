@@ -1,7 +1,7 @@
 module static-semantics
 
 signature
-  
+
   namespaces
 
     Rule
@@ -13,7 +13,7 @@ rules
 
   [[ Grammar(name, rules) ^ (s) ]] :=
     Map1 [[ rules ^ (s) ]].
-  
+
   [[ Rule(_, name, element) ^ (s) ]] :=
     Rule{name} <- s,
     [[ element ^ (s) ]].
@@ -40,9 +40,11 @@ rules
     Rule{name} |-> d | error "Rule definition not found".
 
   [[ Empty() ^ (s) ]].
-  
+
   [[ Literal(_) ^ (s) ]].
 
   [[ CharClass(_) ^ (s) ]].
-  
+
+  [[ NegClass(_) ^ (s) ]].
+
   [[ EOF() ^ (s) ]].

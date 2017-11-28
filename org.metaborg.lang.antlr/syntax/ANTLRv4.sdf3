@@ -1,33 +1,33 @@
 module ANTLRv4
 
 imports
-  
+
   Common
   Comment
   Literal
 
 context-free start-symbols
-  
-  Start
+
+  Start Rule EmptyElement Element
 
 context-free syntax
-  
+
   Start.Grammar = <grammar <ID>;
 
 <{Rule "\n\n"}+>>
 
   Rule.Rule = <<Fragment?><ID>:
-  <ElementOpt>
+  <EmptyElement>
 ;>
 
   Fragment.Fragment = <fragment >
-  
-  ElementOpt.Empty = 
-  ElementOpt = Element
+
+  EmptyElement.Empty = <>
+  EmptyElement = Element
 
   Element = <(<Element>)> {bracket}
+  Element.Alt = <<EmptyElement> | <EmptyElement>> {left}
   Element.Conc = <<Element> <Element>> {left}
-  Element.Alt = <<Element> | <Element>> {left}
   Element.Star = <<Element>*>
   Element.Opt = <<Element>?>
   Element.Plus = <<Element>+>
@@ -35,7 +35,7 @@ context-free syntax
   Element.Nonterminal = ID
   Element.EOF = <EOF>
   Element = CharacterClass
-  
+
   CharacterClass.CharClass = <[<Ranges>]>
   CharacterClass.NegClass = <~<CharacterClass>>
 
@@ -44,16 +44,20 @@ context-free syntax
 
   Range.CharRange = <<RangeChar>-<RangeChar>>
   Range = Character
-  
+
   Character.Single = Char
 
 lexical syntax
 
+  Char = RangeChar
+  Char = [\$\_\'\"]
+  Char = "\\" [ntr]
+  Char = "\\\\"
+
   RangeChar = [a-zA-Z0-9]
-  Char = RangeChar | [\$\_]
 
 context-free priorities
-  
+
   {left: Element.Star Element.Opt Element.Plus} >
   Element.Conc >
   Element.Alt

@@ -5,6 +5,7 @@ lexical syntax
   Literal = "'" LiteralChar* "'"
   LiteralChar = ~[\'\n\\]
   LiteralChar = "\\'"
+  LiteralChar = "\\\\"
   LiteralChar = LiteralBackSlashChar
   LiteralBackSlashChar = "\\"
 
