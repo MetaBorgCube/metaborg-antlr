@@ -1,0 +1,18 @@
+module syntax
+
+language ANTLRv4
+start symbol Rule
+
+test empty rule is valid [[
+  unit: ;
+]] parse succeeds
+
+test empty alternative is valid [[
+  unit: a | ;
+]] parse succeeds
+
+test literal is not ambiguous [[
+  identifier:
+    '\'//abc'
+  ;
+]] parse to Rule(_, _, Literal(_))

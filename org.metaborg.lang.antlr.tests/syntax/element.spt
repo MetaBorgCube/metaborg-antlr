@@ -1,0 +1,19 @@
+module syntax
+
+language ANTLRv4
+start symbol EmptyElement
+
+test empty element [[
+]] parse to Empty()
+
+test empty alternative element [[
+  x |
+]] parse to Alt(_, Empty())
+
+test backslash illegal literal [[
+  '\'
+]] parse fails
+
+test escaped backslash legal literal [[
+  '\\'
+]] parse succeeds

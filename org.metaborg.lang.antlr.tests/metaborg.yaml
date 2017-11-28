@@ -1,0 +1,8 @@
+---
+id: org.metaborg:org.metaborg.lang.antlr.tests:0.1.0-SNAPSHOT
+name: antlr.tests
+dependencies:
+  compile:
+  - org.metaborg:org.metaborg.lang.antlr:0.1.0-SNAPSHOT
+build:
+  useBuildSystemSpec: true
