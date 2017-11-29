@@ -37,10 +37,10 @@ context-free syntax
   Element.Wildcard = Wildcard
   Element.DottedRange = <<DottedRangeChar>..<DottedRangeChar>>
   Element.Command = <<Element> -\> <ID>>
+  Element.Not = <~<Element>>
   Element = CharacterClass
 
   CharacterClass.CharClass = <[<Ranges>]>
-  CharacterClass.NegClass = <~<CharacterClass>>
 
   Ranges.RangeConc = <<Ranges><Ranges>> {left}
   Ranges = Range
@@ -74,6 +74,7 @@ lexical restrictions
 
 context-free priorities
 
+  Element.Not >
   {left: Element.Star Element.Opt Element.Plus} >
   Element.Conc >
   Element.Alt >

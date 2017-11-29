@@ -37,6 +37,9 @@ rules
   [[ Opt(e) ^ (s) ]] :=
     [[ e ^ (s) ]].
 
+  [[ Not(e) ^ (s) ]] :=
+    [[ e ^ (s) ]].
+
   [[ Command(e, _) ^ (s) ]] :=
     [[ e ^ (s) ]].
 
@@ -49,8 +52,6 @@ rules
   [[ Literal(_) ^ (s) ]].
 
   [[ CharClass(_) ^ (s) ]].
-
-  [[ NegClass(_) ^ (s) ]].
 
   [[ Wildcard(_) ^ (s) ]].
 
