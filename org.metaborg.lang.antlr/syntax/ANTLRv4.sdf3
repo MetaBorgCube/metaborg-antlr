@@ -34,6 +34,9 @@ context-free syntax
   Element.Literal = Literal
   Element.Nonterminal = ID
   Element.EOF = <EOF>
+  Element.Wildcard = Wildcard
+  Element.DottedRange = <<DottedRangeChar>..<DottedRangeChar>>
+  Element.Command = <<Element> -\> <ID>>
   Element = CharacterClass
 
   CharacterClass.CharClass = <[<Ranges>]>
@@ -49,15 +52,24 @@ context-free syntax
 
 lexical syntax
 
-  Char = RangeChar
+  Wildcard = "."
+
+  DottedRangeChar = "'" RangeChar "'"
+
+  RangeChar = [a-zA-Z0-9]
+
+  Char = [a-zA-Z0-9]
   Char = [\$\_\'\"]
   Char = "\\" [ntr]
   Char = "\\\\"
 
-  RangeChar = [a-zA-Z0-9]
+lexical restrictions
+
+  Wildcard -/- [\.]
 
 context-free priorities
 
   {left: Element.Star Element.Opt Element.Plus} >
   Element.Conc >
-  Element.Alt
+  Element.Alt >
+  Element.Command

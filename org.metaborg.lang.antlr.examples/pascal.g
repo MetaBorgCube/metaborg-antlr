@@ -153,7 +153,7 @@ recordType
    ;
 
 fieldList
-   : fixedPart (SEMI variantPart)? 
+   : fixedPart (SEMI variantPart)?
    | variantPart
    ;
 
@@ -905,25 +905,20 @@ IMPLEMENTATION
    : I M P L E M E N T A T I O N
    ;
 
-// TODO
-//WS
-//   : [ \t\r\n] -> skip
-//   ;
+WS
+   : [ \t\r\n] -> skip
+   ;
 
-// TODO
-//COMMENT_1
-//   : '(*' .*? '*)' -> skip
-//   ;
+COMMENT_1
+   : '(*' .*? '*)' -> skip
+   ;
 
-// TODO
-//COMMENT_2
-//   : '{' .*? '}' -> skip
-//   ;
+COMMENT_2
+   : '{' .*? '}' -> skip
+   ;
 
-// TODO
 IDENT
-//   : ('a' .. 'z' | 'A' .. 'Z') ('a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_')*
-   : [a-z]
+   : ('a' .. 'z' | 'A' .. 'Z') ('a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_')*
    ;
 
 // TODO
@@ -932,13 +927,10 @@ STRING_LITERAL
    : '\'' ('\'\'')* '\''
    ;
 
-// TODO
 NUM_INT
-//   : ('0' .. '9') + (('.' ('0' .. '9') + (EXPONENT)?)? | EXPONENT)
-   : [0-9]
+   : ('0' .. '9') + (('.' ('0' .. '9') + (EXPONENT)?)? | EXPONENT)
    ;
 
-// TODO
-//fragment EXPONENT
-//   : ('e') ('+' | '-')? ('0' .. '9') +
-//   ;
+fragment EXPONENT
+   : ('e') ('+' | '-')? ('0' .. '9') +
+   ;

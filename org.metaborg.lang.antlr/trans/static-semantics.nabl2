@@ -18,6 +18,8 @@ rules
     Rule{name} <- s,
     [[ element ^ (s) ]].
 
+  [[ Empty() ^ (s) ]].
+
   [[ Conc(e1, e2) ^ (s) ]] :=
     [[ e1 ^ (s) ]],
     [[ e2 ^ (s) ]].
@@ -35,16 +37,21 @@ rules
   [[ Opt(e) ^ (s) ]] :=
     [[ e ^ (s) ]].
 
+  [[ Command(e, _) ^ (s) ]] :=
+    [[ e ^ (s) ]].
+
   [[ Nonterminal(name) ^ (s) ]] :=
     Rule{name} -> s,
     Rule{name} |-> d | error "Rule definition not found".
 
-  [[ Empty() ^ (s) ]].
+  [[ DottedRange(_, _) ^ (s) ]].
 
   [[ Literal(_) ^ (s) ]].
 
   [[ CharClass(_) ^ (s) ]].
 
   [[ NegClass(_) ^ (s) ]].
+
+  [[ Wildcard(_) ^ (s) ]].
 
   [[ EOF() ^ (s) ]].

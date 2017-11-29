@@ -1,14 +1,15 @@
 // Source: https://github.com/csaroff/MiniJava-Compiler
 grammar minijava;
 
-goal	
+goal
 :	mainClass classDeclaration* EOF
 ;
 
-mainClass	
+
+mainClass
 :	'class' Identifier '{' 'public' 'static' 'void' 'main' '(' 'String' '[' ']' Identifier ')' '{' statement '}' '}';
 
-classDeclaration	
+classDeclaration
 :	'class' Identifier ( 'extends' Identifier )? '{' fieldDeclaration* methodDeclaration* '}';
 
 fieldDeclaration
@@ -17,10 +18,10 @@ fieldDeclaration
 localDeclaration
 :	varDeclaration ;
 
-varDeclaration	
+varDeclaration
 :	type Identifier ';';
 
-methodDeclaration	
+methodDeclaration
 :	'public' type Identifier '(' parameterList? ')' '{' methodBody '}';
 
 parameterList
@@ -35,25 +36,27 @@ methodBody
 :	localDeclaration* statement* RETURN expression ';'
 ;
 
-type	
+type
 :	'int' '[' ']'
 |	'boolean'
 |	'int'
 |	Identifier
-;	
+;
 
-statement	
+statement
 :	'{' statement* '}'
 #nestedStatement
 |	'if' LP expression RP ifBlock 'else' elseBlock
 #ifElseStatement
 |	'while' LP expression RP whileBlock
 #whileStatement
+|	'System.out.println' LP  expression RP ';'
+#printStatement
 |	Identifier EQ expression ';'
 #variableAssignmentStatement
 |	Identifier LSB expression RSB EQ expression ';'
 #arrayAssignmentStatement
-;	
+;
 
 ifBlock
 :	statement
@@ -86,6 +89,9 @@ expression
 |   'new' Identifier '(' ')'
 # objectInstantiationExpression
 
+|	expression POWER expression
+# powExpression
+
 |   expression TIMES expression
 # mulExpression
 
@@ -96,7 +102,7 @@ expression
 # subExpression
 
 |   expression LT expression
-# ltExpression  
+# ltExpression
 
 |   expression AND expression
 # andExpression
@@ -143,12 +149,12 @@ Identifier
 
 fragment
 JavaLetter
-:	[a-zA-Z] // these are the 'java letters' below 0xFF
+:	[a-zA-Z$_] // these are the 'java letters' below 0xFF
 ;
 
 fragment
 JavaLetterOrDigit
-:	[a-zA-Z0-9_] // these are the 'java letters or digits' below 0xFF
+:	[a-zA-Z0-9$_] // these are the 'java letters or digits' below 0xFF
 ;
 
 IntegerLiteral
@@ -157,39 +163,59 @@ IntegerLiteral
 
 fragment
 DecimalIntegerLiteral
-:	DecimalNumeral
+:	DecimalNumeral IntegertypeSuffix?
+;
+
+fragment
+IntegertypeSuffix
+:	[lL]
 ;
 
 fragment
 DecimalNumeral
 	:	'0'
-|	NonZeroDigit (Digits? | Digits)
+|	NonZeroDigit (Digits? | Underscores Digits)
 	;
 
-fragment
-Digits
-:	Digit+
-;
+	fragment
+	Digits
+	:	Digit (DigitsAndUnderscores? Digit)?
+	;
 
-fragment
-Digit
-:	'0'
-|	NonZeroDigit
-;
+	fragment
+	Digit
+	:	'0'
+	|	NonZeroDigit
+	;
 
-fragment
-NonZeroDigit
-:	[1-9]
-;
+	fragment
+	NonZeroDigit
+	:	[1-9]
+	;
 
-//WS
-//:   [ \r\t\n]+ -> skip
-//;   
-//
-//MULTILINE_COMMENT
-//:  '/*' .*? '*/' -> skip
-//;
-//
-//LINE_COMMENT
-//:  '//' .*? '\n' -> skip
-//;
+	fragment
+	DigitsAndUnderscores
+	:	DigitOrUnderscore+
+	;
+
+	fragment
+	DigitOrUnderscore
+	:	Digit
+	|	'_'
+	;
+
+	fragment
+	Underscores
+	:	'_'+
+	;
+
+	WS
+	:   [ \r\t\n]+ -> skip
+	;
+
+	MULTILINE_COMMENT
+	:  '/*' .*? '*/' -> skip
+	;
+	LINE_COMMENT
+	:  '//' .*? '\n' -> skip
+	;
