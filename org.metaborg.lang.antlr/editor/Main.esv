@@ -7,6 +7,6 @@ imports
 
 language
 
-  extensions : g
+  extensions : g4
 
   provider : target/metaborg/stratego.ctree
