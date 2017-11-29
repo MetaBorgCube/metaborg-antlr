@@ -172,7 +172,7 @@ ambiguousName
 	|	ambiguousName '.' Identifier
 	;
 
-/* 
+/*
  * Productions from §7 (Packages)
  */
 
@@ -1697,11 +1697,11 @@ JavaLetter
 fragment
 JavaLetterOrDigit
 	:	[a-zA-Z0-9$_] // these are the "java letters or digits" below 0x7F
-//	|	// covers all characters above 0x7F which are not a surrogate
-//		~[\u0000-\u007F\uD800-\uDBFF]
+	|	// covers all characters above 0x7F which are not a surrogate
+		~[\u0000-\u007F\uD800-\uDBFF]
 //		{Character.isJavaIdentifierPart(_input.LA(-1))}?
-//	|	// covers UTF-16 surrogate pairs encodings for U+10000 to U+10FFFF
-//		[\uD800-\uDBFF] [\uDC00-\uDFFF]
+	|	// covers UTF-16 surrogate pairs encodings for U+10000 to U+10FFFF
+		[\uD800-\uDBFF] [\uDC00-\uDFFF]
 //		{Character.isJavaIdentifierPart(Character.toCodePoint((char)_input.LA(-2), (char)_input.LA(-1)))}?
 	;
 
@@ -1716,13 +1716,13 @@ ELLIPSIS : '...';
 // Whitespace and comments
 //
 
-//WS  :  [ \t\r\n\u000C]+ -> skip
-//    ;
+WS  :  [ \t\r\n\u000C]+ -> skip
+    ;
 
-//COMMENT
-//    :   '/*' .*? '*/' -> skip
-//    ;
+COMMENT
+    :   '/*' .*? '*/' -> skip
+    ;
 
-//LINE_COMMENT
-//    :   '//' ~[\r\n]* -> skip
-//    ;
+LINE_COMMENT
+    :   '//' ~[\r\n]* -> skip
+    ;

@@ -57,11 +57,16 @@ lexical syntax
   DottedRangeChar = "'" RangeChar "'"
 
   RangeChar = [a-zA-Z0-9]
+  RangeChar = UnicodeChar
 
   Char = [a-zA-Z0-9]
   Char = [\$\_\'\"]
-  Char = "\\" [ntr]
+  Char = "\\" [nrbtf]
   Char = "\\\\"
+  Char = UnicodeChar
+
+  UnicodeChar = "\\u" Hex Hex Hex Hex
+  Hex = [a-fA-F0-9]
 
 lexical restrictions
 
