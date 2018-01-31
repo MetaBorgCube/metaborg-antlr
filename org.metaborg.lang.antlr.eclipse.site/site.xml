@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.metaborg.lang.antlr.eclipse.feature_0.1.0.qualifier.jar" id="org.metaborg.lang.antlr.eclipse.feature" version="0.1.0.qualifier">
+      <category name="ANTLRv4"/>
+   </feature>
+   <category-def name="ANTLRv4" label="ANTLRv4 language Eclipse plugin">
+      <description>
+         ANTLRv4 language Eclipse plugin.
+      </description>
+   </category-def>
+</site>
